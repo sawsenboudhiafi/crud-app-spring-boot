@@ -2,18 +2,18 @@ package com.mn.service;
 
 import java.util.List;
 
-import com.mn.entities.UserEntity;
+import com.mn.entities.User;
 
 public interface IUserService {
 
 
-	UserEntity findById(long id);
+	User findById(long id);
 
-    List<UserEntity> findAllUsers();
+    List<User> findAllUsers();
 
-    UserEntity saveUser(UserEntity user);
+    User saveUser(User user);
 
-	void deleteUser(UserEntity user);
+	void deleteUser(User user);
 
 
 }

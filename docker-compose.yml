@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    postgres:
+        build: "docker/postgres"
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: mncabdev
+            POSTGRES_PASSWORD: mncabdev
+            POSTGRES_MULTIPLE_DATABASES: mncab_dev
+    app1: 
+      depends: postgres
+       
+

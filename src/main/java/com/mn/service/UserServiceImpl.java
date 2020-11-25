@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mn.dao.UserDao;
-import com.mn.entities.UserEntity;
+import com.mn.entities.User;
 
 @Service
 public class UserServiceImpl implements IUserService{
@@ -16,24 +16,24 @@ public class UserServiceImpl implements IUserService{
 	
 	
 	@Override
-	public UserEntity findById(long id) {
-		UserEntity user=userDao.findById(id);
+	public User findById(long id) {
+		User user=userDao.findById(id);
 		return user ;
 	}
 
 	@Override
-	public List<UserEntity> findAllUsers() {
-		return (List<UserEntity>)userDao.findAll();
+	public List<User> findAllUsers() {
+		return (List<User>)userDao.findAll();
 	}
 
 	@Override
-	public UserEntity saveUser(UserEntity user) {
+	public User saveUser(User user) {
 		return userDao.save(user);
 		
 	}
 
 	@Override
-	public void deleteUser(UserEntity user) {
+	public void deleteUser(User user) {
 		userDao.delete(user);	
 		
 	}

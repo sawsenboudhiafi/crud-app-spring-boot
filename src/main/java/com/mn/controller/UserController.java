@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.mn.entities.UserEntity;
+import com.mn.entities.User;
 import com.mn.service.IUserService;
 
 @CrossOrigin("*")
@@ -29,7 +29,7 @@ public class UserController {
 	// -------------------Create user-------------------------------------------
 
 	@RequestMapping(value = "/newuser", method = RequestMethod.POST)
-	public void createUser(@RequestBody UserEntity user) {
+	public void createUser(@RequestBody User user) {
 	
 			userService.saveUser(user);
 		
@@ -39,10 +39,10 @@ public class UserController {
 	// ------------------------------------------------
 
 	@RequestMapping(value = "/user/update/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody UserEntity user) {
+	public ResponseEntity<?> updateUser(@PathVariable("id") long id, @RequestBody User user) {
 		logger.info("Updating user with id {}", id);
 
-		UserEntity users = userService.findById(id);
+		User users = userService.findById(id);
 		if (users == null) {
 			logger.error("Unable to update. user with id {} not found.", id);
 			return new ResponseEntity("Unable to upate. user with id " + id + " not found.", HttpStatus.NOT_FOUND);
@@ -54,44 +54,44 @@ public class UserController {
 
 		
         userService.saveUser(user);
-		return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
 		logger.info("Fetching & Deleting User with id {}", id);
 
-		UserEntity user = userService.findById(id);
+		User user = userService.findById(id);
 		if (user == null) {
 			logger.error("Unable to delete. User with id {} not found.", id);
 			return new ResponseEntity("Unable to delete. User with id " + id + " not found.", HttpStatus.NOT_FOUND);
 		}
 		userService.deleteUser(user);
-		return new ResponseEntity<UserEntity>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 
 	@RequestMapping(value = "/allusers", method = RequestMethod.GET)
-	public ResponseEntity<List<UserEntity>> listAllUsers() {
-		// List<ClientEntity> users = userService.findAllUsers();
-		List<UserEntity> users = new ArrayList<UserEntity>();
+	public ResponseEntity<List<User>> listAllUsers() {
+	
+		List<User> users = new ArrayList<User>();
 		users=userService.findAllUsers();
 		logger.info("result size is: "+users.size());
 		if (users.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 			// You many decide to return HttpStatus.NOT_FOUND
 		}
-		return new ResponseEntity<List<UserEntity>>(users, HttpStatus.OK);
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getUser(@PathVariable("id") long id) {
 		logger.info("Fetching User with id {}", id);
-		UserEntity user = userService.findById(id);
+		User user = userService.findById(id);
 		if (user  == null) {
 			logger.error("User with id {} not found.", id);
 			return new ResponseEntity("User with id " + id + " not found", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<UserEntity>(user , HttpStatus.OK);
+		return new ResponseEntity<User>(user , HttpStatus.OK);
 	}	
 
 }
